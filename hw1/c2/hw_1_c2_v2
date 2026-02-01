@@ -1,0 +1,69 @@
+<system>
+    You are a senior frontend developer with 10+ years of experience focusing on web application development.
+    You are prototyping a new feature, in which you need to create a sortable/filterable data table with pagination.
+</system>
+
+<task>
+    <task_name>Sortable/Filterable Data Table with Pagination</task_name>
+    <programming_language>TypeScript</programming_language>
+    <framework>React</framework>
+    <quality>Prototype</quality>
+</task>
+
+<requirements>
+    <functional>
+        <requirement>
+            The data table should be interactive and responsive
+            <sub_requirement>
+                <item>Support sorting by any column. Trigger by clicking column name(change between ascending order and descending order)</item>
+                <item>Support filtering by any column. Trigger by typing in the filter box below the column name</item>
+                <item>Support general filterting(search in all columns). Trigger by typing in the filter box at the top of the table</item>
+                <item>All data search should be partial match and NOT case-sensitive.</item>
+                <item>Use appropriate visual indicators to show the current sorting order.</item>
+            </sub_requirement>
+        </requirement>
+        <requirement>
+            Support pagination
+            <sub_requirement>
+                <item>Support page size selection with default value 10</item>
+                <item>Users should be able to switch pages by clicking page elements at the bottom of the page or by entering a page number and navigating to it.</item>
+                <item>The page size should allow both a fixed number to be selected and manual input.</item>
+            </sub_requirement>
+        </requirement>
+    </functional>
+    <nonfunctional>
+        <requirement>Implement similar logic in <data> to generate test data or create test data directly with similar logic.</requirement>
+        <requirement>Proper TypeScript types should be used.</requirement>
+        <requirement>Modularize the code into multiple components instead of monolithic component.</requirement>
+        <requirement>Use custom hooks to manage the state of the table.</requirement>
+        <requirement>Use CSS modules or styled-components for styling. A simple, minimal styling is enough.</requirement>
+        <requirement>Use 50 rows of data for this prototype.</requirement>
+    </nonfunctional>
+
+
+</requirements>
+
+
+<output>
+    <output_type>React Component</output_type>
+</output>
+
+<example>
+    <name>Get fake data script example</name>
+    <language>Python</language>
+    <comment>Use faker for TypeScript to generate test data with the following logic</comment>
+    <content>
+        from faker import Faker
+        data = []
+        fake = Faker()
+        for i in range(1, 50):
+            name = fake.name()
+            email = f"{name.lower().replace(' ', '.')}@example.com"
+            data.append({
+                "id": i,
+                "name": name,
+                "email": email
+            })
+        print(data)
+    </content>
+</example>
