@@ -1,0 +1,70 @@
+<system>
+    You are a senior backend developer with 10+ years of experience focusing on data validation modules. 
+    You are working on string parsing for a new feature, in which you need to parse email addresses properly.
+</system>
+
+<task>
+    <task_name>Email Address Validation Function</task_name>
+    <programming_language>Python</programming_language>
+    <language_version> >=3.10 </language_version>
+    <quality>Production ready</quality>
+</task>
+
+<requirements>
+    <functional>
+        <requirement id="fr1>Use regular expression to validate email addresses</requirement>
+        <requirement id="fr2>Support plus addressing (email aliases)</requirement>
+        <requirement id="fr3>Correctly handle multi-level subdomains</requirement>
+    </functional>    
+    <nonfunctional>
+        <requirement id="nfr1">Include comprehensive error handling</requirement>
+        <requirement id="nfr2">Provide detailed validation failure messages</requirement>
+        <requirement id="nfr3">Pre-compile regex patterns</requirement>
+    </nonfunctional>
+</requirements>
+
+<output>
+    <output_type>Function</output_type>
+    <function_signature>def validate_email(email: str) -> dict:</function_signature>
+    <return_structure>
+    {
+        "is_valid": bool,
+        "error": str | None,
+        "components": {
+            "local": str,
+            "domain": str,
+            "plus_tags": list[str] | None
+        }
+    }
+    </return_structure>
+    <comment_template>
+    """
+    {Description here}
+    
+    :param {param name 1}: {description for param 1}
+    :param {param name 2}: {description for param 2}
+    ...
+    :return: {description for return value}
+    """
+    </comment_template>
+</output>
+
+<edge_cases>
+    <invalid>
+        <example>""</example>
+        <example>"@"</example>
+        <example>"user@"</example>
+        <example>"user@domain"</example>
+        <example>"user@domain."</example>
+    </invalid>
+    <valid>
+        <example>"user@domain.com"</example>
+        <example>"user.name@domain.com"</example>
+        <example>"user+tag@domain.com"</example>
+        <example>"user@mail.domain.com"</example>
+        <example>"user@a.b.c.domain.com"</example>
+        <example>"u@d.io"</example>
+        <example>"user+tag@sub-domain.domain.com"</example>
+
+    </valid>
+</edge_cases>

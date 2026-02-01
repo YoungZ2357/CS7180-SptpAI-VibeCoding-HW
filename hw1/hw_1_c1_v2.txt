@@ -1,0 +1,139 @@
+<system>
+    You are a senior backend developer with 10+ years of experience focusing on data validation modules. 
+    You are working on string parsing for a new feature, in which you need to parse email addresses properly.
+</system>
+
+<task>
+    <task_name>Email Address Validation Function</task_name>
+    <programming_language>Python</programming_language>
+    <language_version> >=3.10 </language_version>
+    <quality>Production ready</quality>
+</task>
+
+<requirements>
+    <functional>
+        <requirement id="fr1>
+            Use regular expression to validate email addresses
+            <sub_requirement>
+                <item>Use simplified&practical pattern instead of strict RFC5322</item>
+                <item>Iternationalized domain names not in scope</item>
+                <item>Quoted strings not allowed in local part</item>
+            </sub_requirement>
+        </requirement>
+        <requirement id="fr2">
+            Support plus addressing (email aliases)
+            <sub_requirement>
+                <item>Extract all tags</item>
+                <item>Return tags in order of appearance</item>
+            </sub_requirement>
+        </requirement>
+        <requirement id="fr3">
+            Correctly handle multi-level subdomains
+            <sub_requirement>
+                <item>Support up to 10 levels of subdomains</item>
+                <item>Support up to 255 characters in domain</item>
+                <item>Support up to 32 characters in each subdomain</item>
+            </sub_requirement>
+        </requirement>
+    </functional>    
+    <nonfunctional>
+        <requirement id="nfr1">Include comprehensive error handling</requirement>
+        <requirement id="nfr2">Provide detailed validation failure messages</requirement>
+        <requirement id="nfr3">Pre-compile regex patterns</requirement>
+        <requirement id="nfr4">Regex pattern should be module-lebel constant</requirement>
+    </nonfunctional>
+
+    <testing>
+        <requirement id="v1">Unit test needed in the deliverables. Use function in the following tag to generate edge cases.</requirement>
+        <example>
+            <name>generate email address for testing</name>
+            <language>Python</language>
+            <content>
+            def generate_edge_case_emails():
+                edge_cases = {
+                    'valid': [
+                        'simple@example.com',
+                        'very.common@example.com',
+                        'disposable.style.email.with+symbol@example.com',
+                        'other.email-with-hyphen@example.com',
+                        '1234567890@example.com',
+                        'underscore_user@example.com',
+                        'user@sub.domain.com',
+                        'user@a.b',
+                        'user@example.co.jp',
+                        'a.very.long.username.that.is.still.valid@example.com',
+                    ],
+                    'invalid': [
+                        'abc@example!com',
+                        'abc..def@example.com',
+                        'abc@example..com',
+                        '.abc@example.com',
+                        'abc.@example.com',
+                        'abcexample.com',
+                        'abc@def@example.com',
+                        'abc def@example.com',
+                        'abc@example com',
+                        'abc\ndef@example.com',
+                        'a'*65 + '@example.com',
+                        'user@' + 'a'*251 + '.com', 
+                        'abc@example.invalidtld',
+                        'abc@example',
+                        '@example.com',
+                        'username@',
+                        '',
+                    ]
+                }
+                return edge_cases
+            </content>
+
+        </example>
+    </testing>
+</requirements>
+
+<output>
+    <output_type>Function</output_type>
+    <function_signature>def validate_email(email: str) -> dict:</function_signature>
+    <return_structure>
+    {
+        "is_valid": bool,
+        "error": str | None,
+        "components": {
+            "local": str,
+            "domain": str,
+            "plus_tags": list[str]  // When no tag found, return []
+        }
+    }
+    </return_structure>
+    <comment_template>
+    """
+    {Description here}
+    
+    :param {param name 1}: {description for param 1}
+    :param {param name 2}: {description for param 2}
+    ...
+    :return: {description for return value}
+    """
+    </comment_template>
+</output>
+
+
+
+<edge_cases>
+    <invalid>
+        <example>""</example>
+        <example>"@"</example>
+        <example>"user@"</example>
+        <example>"user@domain"</example>
+        <example>"user@domain."</example>
+    </invalid>
+    <valid>
+        <example>"user@domain.com"</example>
+        <example>"user.name@domain.com"</example>
+        <example>"user+tag@domain.com"</example>
+        <example>"user@mail.domain.com"</example>
+        <example>"user@a.b.c.domain.com"</example>
+        <example>"u@d.io"</example>
+        <example>"user+tag@sub-domain.domain.com"</example>
+
+    </valid>
+</edge_cases>
