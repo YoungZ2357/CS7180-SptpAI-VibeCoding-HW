@@ -1,0 +1,133 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumerate}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{parskip}
+\usepackage{bookmark}
+\usepackage{float}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstset{
+    language=XML,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!60!black},
+    stringstyle=\color{red},
+    showstringspaces=false,
+    breaklines=true,
+    frame=single,
+    numbers=left,
+    numberstyle=\tiny\color{gray}
+}
+
+
+% 设置页眉
+\pagestyle{fancy}
+\lhead{CS5800: Algorithms}  % 课程名称
+\chead{Homework 2}          % 作业编号
+\rhead{Fall 2025}          % 学期
+\lfoot{}
+\cfoot{\thepage}
+\rfoot{}
+
+% 定义theorem环境
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{claim}[theorem]{Claim}
+
+% 标题信息
+\title{CS7180: Sptp in AI: Vibe Coding\\Homework 1}  % 课程名和作业编号
+\author{Qingyang Zhang\\
+\small Student ID: 002591724  % 在这里填写你的学生ID
+}
+\date{Due: Tuesday, Feburary 2}
+\begin{document}
+\maketitle
+
+\section{Prompts making}
+The most of content of prompts are in a text file with XML labels.
+\subsection{General Prompt}
+This prompt is used to set limits:
+\begin{lstlisting}
+Please use the following rules for further development. If there is anyting 
+unclear about the process, ask me about it. Do not write code until I tell you
+ to do so
+\end{lstlisting}
+We use this prompt before we upload prompt document. This is essential as those questions serve as one of the bases for refining prompts
+
+\subsection{Prompt Document(Minimal Prompt Template)}
+The prompt document usually has following structures:
+\begin{lstlisting}
+<system>
+You are a {role here} with {technical depth expectation for LLM. for example, with 10 years of experience}
+You are developing {content here}
+</system>
+
+\end{lstlisting}
+
+\section{Prompt Iteration}
+\begin{figure}[htbp]  % h=here, t=top, b=bottom, p=page
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/iter.png}
+    \caption{Iteration Process}
+\end{figure}
+
+The iteration of prompt file has following steps:
+\begin{enumerate}
+    \item Write initial prompt document from scratch.
+    \item Upload initial prompt to LLM along with query template(in which we will require LLM to ask about implemtation detail)
+    \item Repeat: Answer questions \& add more prompts util:1) We are satisfied about the plan LLM gives us; 2)LLM thinks the plan works and stop giving out questions.
+    \item Require LLM proceeds to implementation.
+    \item Validate code from three aspects: \begin{itemize}
+        \item Prompts and initial expectation about this code(for example, modular TypeScript class);
+        \item Additional expectation after seeing the code.(for example, I want them in separate files/ I noticed that object-oriented is to sophisticated and not needed.)
+        \item Test result
+    \end{itemize}
+    \item Repeat: Require LLM to create new versions(for example, v1.1 to fix v1.0) of artifact to fix existing problems. If new versions created, require LLM to creat development log based on a give template.
+    \item When the code is satisfying enough, the conversation stops. Then imporve prompt document and begin a new iteration(Create v2.0 with imporved prompts for v1.0).
+\end{enumerate}
+
+\section{Summarization}
+
+\subsection{What Makes Good Prompts}
+Based on observation, most components that make good prompts have already been covered in the lectures, but the specific direction and content require refinement.
+
+\subsubsection{Detailed Description about Output}
+
+Possibly, we should always clarify whether we want a piece of code or files. Specifically, we need to give out file names to encourage Claude to use artifacts.\textbf{If we don't give out specific file name, Claude is less likely to use artifact, and will give out code in the chatting window}
+It will also ingore any of your command that requires using an artifact, as it thinks that the content in the chatting window is an artifact.
+
+\subsubsection{Repeat Limitations \& Ask, Don't Describe}
+
+Claude sometimes \textbf{ignore requirements mentioned at the beginning of the conversation, even though the conversation is short.}
+And, if we just give out description(like test result) without a specific requirement, this ignorance is more likely to happen.
+For example, \texttt{"Don't code until I tell you"} is usually ignored. This may be a result of Anthropic emphasizing model diligence, and we sometimes need to impose limits on this.
+
+\subsubsection{Describe the Code's Execution/Compilation Process}
+
+\appendix
+
+\section{Links}
+\textbf{GitHub Repository}: \url{https://github.com/YoungZ2357/CS7180-SptpAI-VibeCoding-HW}
+
+
+
+\textbf{Challenge 1}
+\begin{itemize}
+    \item Version1: \url{https://claude.ai/share/7fa640bc-53f0-421a-89e4-d7a1892d0550}
+    \item Version2: \url{https://claude.ai/share/b478f1e3-ba38-4672-8d69-ed1f7a9da809}
+\end{itemize}
+
+\textbf{Challenge 2}
+\begin{itemize}
+    \item Version1: \url{https://claude.ai/share/9ecef542-1d4c-464b-bfdc-4969fba770cc}
+    \item Version2: \url{https://claude.ai/share/d58574ea-41ee-45ce-afc2-6d35896cbfc5}
+\end{itemize}
+\end{document}
