@@ -1,0 +1,51 @@
+<system>
+    {Role-Playing Prompt}
+    {Target}
+</system>
+
+<task>
+    <task_name>Task name</task_name>
+    <programming_language>Programming language</programming_language>
+    <quality>Prototype|Production-Ready, ...</quality>
+</task>
+
+<requirements>
+    <meta>
+    Use Claude Artifact for code generation. Code longer than 10 lines is not allowed in the chatting window.
+    </meta>
+
+    <functional>
+        <requirement> Requirement 1 </requirement>
+        <requirement>
+         Requirement 2 
+         <sub_requirement>
+            <item> Requirement 2.1 </item>
+            <item> Requirement 2.2 </item>
+         </sub_requirement>
+         </requirement>
+        <requirement> Requirement 3 </requirement>
+        <requirement> Requirement 4 </requirement>
+        <requirement> Requirement 5 </requirement>
+    </functional>
+
+    <nonfunctional>
+        <requirement> Requirement 6 </requirement>
+        <requirement> Requirement 7 </requirement>
+        <requirement> Requirement 8 </requirement>
+        <requirement> Requirement 9 </requirement>
+        <requirement> Requirement 10 </requirement>
+    </nonfunctional>
+</requirements>
+
+<output>
+    <output_type>Output type</output_type>
+    <main_file_name>Main file name</main_file_name>
+    <test_file_name>Test file name</test_file_name>
+</output>
+
+<example>
+    <name></name>
+    <type>Output|Input|Code|Data|...</type>
+    <language></language>
+    <content></content>
+</example>

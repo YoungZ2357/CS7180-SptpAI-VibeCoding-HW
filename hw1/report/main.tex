@@ -52,7 +52,7 @@
 \maketitle
 
 \section{Prompts making}
-The most of content of prompts are in a text file with XML labels.
+The most of content of prompts are in a text file with XML labels. All prompts and all versions of code are in GitHub Repository: \url{https://github.com/YoungZ2357/CS7180-SptpAI-VibeCoding-HW}
 \subsection{General Prompt}
 This prompt is used to set limits:
 \begin{lstlisting}
@@ -60,7 +60,7 @@ Please use the following rules for further development. If there is anyting
 unclear about the process, ask me about it. Do not write code until I tell you
  to do so
 \end{lstlisting}
-We use this prompt before we upload prompt document. This is essential as those questions serve as one of the bases for refining prompts
+We use this prompt before we upload prompt document. This is essential as those questions serve as one of the bases for refining prompts.
 
 \subsection{Prompt Document(Minimal Prompt Template)}
 The prompt document usually has following structures:
@@ -93,24 +93,83 @@ The iteration of prompt file has following steps:
     \item Repeat: Require LLM to create new versions(for example, v1.1 to fix v1.0) of artifact to fix existing problems. If new versions created, require LLM to creat development log based on a give template.
     \item When the code is satisfying enough, the conversation stops. Then imporve prompt document and begin a new iteration(Create v2.0 with imporved prompts for v1.0).
 \end{enumerate}
+\section{Code Comparison}
+\textbf{Challenge 1: Version1 $\rightarrow$ Version2}
+\begin{itemize}
+    \item Prompt change: Added length limits on domain/subdomain. Specified requirements on regular expression. Specified output detail(type).
+    \item Number of additional prompt for older version: around 5
+    \item Code change: Version2 is more modular, separating test script from the main function.
+\end{itemize}
+\textbf{Challenge 2: Version1 $\rightarrow$ Version2}
+\begin{itemize}
+    \item Prompt change: Mainly about artifact operations and adding additional functions(manual input for page size)
+    \item Number of additional prompt for older version:
+    \item Code change: The second version features clearer typesetting. Compared to the first version, the manual page size input in the second version is more deeply integrated with the table display, whereas this functionality in the first version felt more like a patch that was slapped on.
+\end{itemize}
+\textbf{Challenge 3: Version1 $\rightarrow$ Version2}
+\begin{itemize}
+    \item Prompt change: Specified file name requirement.
+    \item Number of additional prompt for older version:
+    \item Code change: The second version takes less time to make TypeScript files eligible for compiling. Both versions successfully pass the test using "ts-node" but failed when running on browser.
+\end{itemize}
+\section{Results}
+\subsection{Tests}
+\textbf{Challenge 1}
+\begin{itemize}
+    \item Version1: All success(Hard encoded edge cases).
+    \item Version2: All success(Hard encoded edge cases). Better code style and reusability.
+\end{itemize}
 
-\section{Summarization}
+\textbf{Challenge 2}
+\begin{itemize}
+    \item Version1: All components work.
+    \item Version2: All components work.
+\end{itemize}
+\textbf{Challenge 3}
+\begin{itemize}
+    \item Version1: Test run in console: failed 5 times. Test on browser: Falied.
+    \item Version2: Test run in colsole: Success. Test on browser: Failed.
+\end{itemize}
 
-\subsection{What Makes Good Prompts}
+
+
+
+
+\section{What Makes Good Prompts}
+
 Based on observation, most components that make good prompts have already been covered in the lectures, but the specific direction and content require refinement.
 
-\subsubsection{Detailed Description about Output}
+\subsection{Detailed Description about Output}
 
 Possibly, we should always clarify whether we want a piece of code or files. Specifically, we need to give out file names to encourage Claude to use artifacts.\textbf{If we don't give out specific file name, Claude is less likely to use artifact, and will give out code in the chatting window}
-It will also ingore any of your command that requires using an artifact, as it thinks that the content in the chatting window is an artifact.
+It will also ingore any of your command that requires using an artifact, as it thinks that the content in the chatting window is an artifact. 
 
-\subsubsection{Repeat Limitations \& Ask, Don't Describe}
+For example, before Challenge 3 version 1, there is a prompt without output file names and Claude always give out code in the chatting window. After adding file names into the prompt(without changing anyting else),
+Claude begin to focus on using artifact and asking question on it(artifact versioning, naming and file-artifact matching).
+
+\subsection{Repeat Limitations \& Ask, Don't Describe}
 
 Claude sometimes \textbf{ignore requirements mentioned at the beginning of the conversation, even though the conversation is short.}
 And, if we just give out description(like test result) without a specific requirement, this ignorance is more likely to happen.
-For example, \texttt{"Don't code until I tell you"} is usually ignored. This may be a result of Anthropic emphasizing model diligence, and we sometimes need to impose limits on this.
+For example, \texttt{"Don't code until I tell you"} is usually ignored. 
 
-\subsubsection{Describe the Code's Execution/Compilation Process}
+
+For example: in Challenge 3, I give out only error messages without questions, Claude immediately created a new version of the artifact, with the error partially fixed.
+This may stem from Anthropic's emphasis on model diligence, but we should restrict Claude's programming behavior to prevent context hogging and dilution of critical information.
+
+\subsection{Describe the Code's Execution/Compilation Process}
+Languages like TypeScript have different runtime requirements across environments. For instance, while completing Challenge 3, I frequently encountered issues related to ESM, compilation, and localStorage. To address this, we can add elements in prompt document to require "how can we run the code".
+
+\begin{lstlisting}
+<requirements>
+    <functional>
+        <item>
+        The code will be tested through "ts-node SmartCache.test.ts"
+        </item>
+    </functional>
+</requirements>
+\end{lstlisting}
+
 
 \appendix
 
@@ -130,4 +189,12 @@ For example, \texttt{"Don't code until I tell you"} is usually ignored. This may
     \item Version1: \url{https://claude.ai/share/9ecef542-1d4c-464b-bfdc-4969fba770cc}
     \item Version2: \url{https://claude.ai/share/d58574ea-41ee-45ce-afc2-6d35896cbfc5}
 \end{itemize}
+\textbf{Challenge 3}
+\begin{itemize}
+    \item Failed Version: \url{https://claude.ai/share/1272aebe-ed65-443b-b20a-2d55605d7af4}
+    \item Version1: \url{https://claude.ai/share/d2ead286-71b4-4e73-889b-539148f29650}
+    \item Version2: \url{https://claude.ai/share/24899aaa-6ff9-41b4-bacc-04eb6ecc7f4f}
+
+\end{itemize}
+
 \end{document}

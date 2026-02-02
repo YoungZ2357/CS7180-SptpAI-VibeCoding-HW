@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartCache Test Suite</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+        }
+        .info {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .console-output {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>SmartCache Test Suite</h1>
+    
+    <div class="info">
+        <strong>Instructions:</strong>
+        <ol>
+            <li>Open browser DevTools (F12 or Ctrl+Shift+I)</li>
+            <li>Go to the Console tab</li>
+            <li>Test results will appear in the console</li>
+        </ol>
+    </div>
+
+    <div class="info">
+        <strong>Note:</strong> Make sure you compiled TypeScript files first:
+        <pre>npx tsc</pre>
+        Output should be in <code>./dist/</code> folder.
+    </div>
+
+    <div id="output" class="console-output">
+        Loading tests... Check browser console for results.
+    </div>
+
+    <script type="module" src="./dist/SmartCache.test.js"></script>
+</body>
+</html>

@@ -40,7 +40,7 @@
         <requirement id="nfr1">Include comprehensive error handling</requirement>
         <requirement id="nfr2">Provide detailed validation failure messages</requirement>
         <requirement id="nfr3">Pre-compile regex patterns</requirement>
-        <requirement id="nfr4">Regex pattern should be module-lebel constant</requirement>
+        <requirement id="nfr4">Regex pattern should be module-level constant</requirement>
     </nonfunctional>
 
     <testing>
